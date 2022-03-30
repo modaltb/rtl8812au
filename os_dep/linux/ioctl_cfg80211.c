@@ -5622,7 +5622,7 @@ exit:
 #endif
 */
 static int	cfg80211_rtw_del_station(struct wiphy *wiphy, struct net_device *ndev,
-	u8 *mac
+	const u8 *mac
 )
 {
 	int ret = 0;
