@@ -653,9 +653,9 @@ void _iqk_tx_8821a(
 		}
 		if (rx_iqk_loop == 2) {
 			for (i = 0; i < rx_average; i++) {
-				// fix array-bound warninrs
-				if(i < 2 && ii < 2){
-					for (ii = i + 1; ii < rx_average; ii++) {
+				for (ii = i + 1; ii < rx_average; ii++) {
+					// fix array-bound warnings
+					if(i < 2 && ii < 2){
 						dx = (RX_X0[1][i] >> 21) - (RX_X0[1][ii] >> 21);
 						if (dx < 4 && dx > -4) {
 							dy = (RX_Y0[1][i] >> 21) - (RX_Y0[1][ii] >> 21);
