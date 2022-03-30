@@ -18,7 +18,7 @@ EXTRA_CFLAGS += -Wno-vla -g
 #endif
 
 EXTRA_CFLAGS += -I$(src)/include
-EXTRA_LDFLAGS += --strip-all -O3
+#EXTRA_LDFLAGS += --strip-all -O3
 
 ########################## WIFI IC ############################
 CONFIG_RTL8812A = y
