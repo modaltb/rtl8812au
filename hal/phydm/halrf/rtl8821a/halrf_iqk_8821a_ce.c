@@ -597,7 +597,8 @@ void _iqk_tx_8821a(
 			PHYDM_DBG(dm, DBG_COMP_MCC, "TX_X0[%d] = %x ;; TX_Y0[%d] = %x\n", i, (TX_X0[i]) >> 21 & 0x000007ff, i, (TX_Y0[i]) >> 21 & 0x000007ff);
 		for (i = 0; i < tx_average; i++) {
 			for (ii = i + 1; ii < tx_average; ii++) {
-				if(i < cal_num_8821A && ii <cal_num_8821A){
+				// fix array-bound warninrs
+				if(i < cal_num_8821A && ii < cal_num_8821A){
 					dx = (TX_X0[i] >> 21) - (TX_X0[ii] >> 21);
 					if (dx < 3 && dx > -3) {
 						dy = (TX_Y0[i] >> 21) - (TX_Y0[ii] >> 21);
@@ -630,14 +631,17 @@ void _iqk_tx_8821a(
 		}
 		for (i = 0; i < rx_average; i++) {
 			for (ii = i + 1; ii < rx_average; ii++) {
-				dx = (RX_X0[0][i] >> 21) - (RX_X0[0][ii] >> 21);
-				if (dx < 4 && dx > -4) {
-					dy = (RX_Y0[0][i] >> 21) - (RX_Y0[0][ii] >> 21);
-					if (dy < 4 && dy > -4) {
-						RX_X_temp = ((RX_X0[0][i] >> 21) + (RX_X0[0][ii] >> 21)) / 2;
-						RX_Y_temp = ((RX_Y0[0][i] >> 21) + (RX_Y0[0][ii] >> 21)) / 2;
-						RX_finish1 = 1;
-						break;
+				// fix array-bound warninrs
+				if(i < cal_num_8821A && ii < cal_num_8821A){
+					dx = (RX_X0[0][i] >> 21) - (RX_X0[0][ii] >> 21);
+					if (dx < 4 && dx > -4) {
+						dy = (RX_Y0[0][i] >> 21) - (RX_Y0[0][ii] >> 21);
+						if (dy < 4 && dy > -4) {
+							RX_X_temp = ((RX_X0[0][i] >> 21) + (RX_X0[0][ii] >> 21)) / 2;
+							RX_Y_temp = ((RX_Y0[0][i] >> 21) + (RX_Y0[0][ii] >> 21)) / 2;
+							RX_finish1 = 1;
+							break;
+						}
 					}
 				}
 			}
@@ -649,15 +653,18 @@ void _iqk_tx_8821a(
 		}
 		if (rx_iqk_loop == 2) {
 			for (i = 0; i < rx_average; i++) {
-				for (ii = i + 1; ii < rx_average; ii++) {
-					dx = (RX_X0[1][i] >> 21) - (RX_X0[1][ii] >> 21);
-					if (dx < 4 && dx > -4) {
-						dy = (RX_Y0[1][i] >> 21) - (RX_Y0[1][ii] >> 21);
-						if (dy < 4 && dy > -4) {
-							RX_X = ((RX_X0[1][i] >> 21) + (RX_X0[1][ii] >> 21)) / 2;
-							RX_Y = ((RX_Y0[1][i] >> 21) + (RX_Y0[1][ii] >> 21)) / 2;
-							RX_finish2 = 1;
-							break;
+				// fix array-bound warninrs
+				if(i < cal_num_8821A && ii < cal_num_8821A){
+					for (ii = i + 1; ii < rx_average; ii++) {
+						dx = (RX_X0[1][i] >> 21) - (RX_X0[1][ii] >> 21);
+						if (dx < 4 && dx > -4) {
+							dy = (RX_Y0[1][i] >> 21) - (RX_Y0[1][ii] >> 21);
+							if (dy < 4 && dy > -4) {
+								RX_X = ((RX_X0[1][i] >> 21) + (RX_X0[1][ii] >> 21)) / 2;
+								RX_Y = ((RX_Y0[1][i] >> 21) + (RX_Y0[1][ii] >> 21)) / 2;
+								RX_finish2 = 1;
+								break;
+							}
 						}
 					}
 				}
