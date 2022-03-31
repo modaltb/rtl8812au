@@ -2251,11 +2251,11 @@ strip:
 
 modules_install:
 	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
-	/sbin/depmod -a ${KVER}
+	#/sbin/depmod -a ${KVER}
 
 uninstall:
 	rm -f $(MODDESTDIR)/$(MODULE_NAME).ko
-	/sbin/depmod -a ${KVER}
+	#/sbin/depmod -a ${KVER}
 
 backup_rtlwifi:
 	@echo "Making backup rtlwifi drivers"
